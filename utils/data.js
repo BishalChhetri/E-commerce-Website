@@ -1,0 +1,82 @@
+import bcrypt from "bcryptjs";
+
+const data = {
+  users: [
+    {
+      name: "Bishal KC",
+      email: "kcbisal1@gmail.com",
+      password: bcrypt.hashSync("123456"),
+      isAdmin: true,
+    },
+    {
+      name: "Ujjal KC",
+      email: "kcujjal1@gmail.com",
+      password: bcrypt.hashSync("123456"),
+      isAdmin: false,
+    },
+  ],
+  products: [
+    {
+      name: "Free Pant",
+      slug: "free-shirt",
+      category: "Pants",
+      image: "/images/pant1.jpg",
+      price: 70,
+      brand: "Casely",
+      rating: 4.5,
+      numReviews: 10,
+      countInStock: 20,
+      description: "A popular pant",
+    },
+    {
+      name: "Fit Pant",
+      slug: "fit-pant",
+      category: "Pants",
+      image: "/images/pant2.jpg",
+      price: 80,
+      brand: "BellyJean",
+      rating: 4.6,
+      numReviews: 15,
+      countInStock: 20,
+      description: "A popular pant",
+    },
+    {
+      name: "Classic Pant",
+      slug: "classic-pant",
+      category: "Pants",
+      image: "/images/pant3.jpg",
+      price: 75,
+      brand: "Zara",
+      rating: 4.7,
+      numReviews: 12,
+      countInStock: 20,
+      description: "A popular pant",
+    },
+    {
+      name: "Slim Pant",
+      slug: "slim-pant",
+      category: "Pants",
+      image: "/images/pant4.jpg",
+      price: 90,
+      brand: "NeckedSports",
+      rating: 4.5,
+      numReviews: 10,
+      countInStock: 20,
+      description: "A popular pant",
+    },
+    {
+      name: "Golf Pant",
+      slug: "golf-pant",
+      category: "Pants",
+      image: "/images/pant5.jpg",
+      price: 90,
+      brand: "Oliver",
+      rating: 4.6,
+      numReviews: 10,
+      countInStock: 0,
+      description: "Smart looking pant",
+    },
+  ],
+};
+
+export default data;

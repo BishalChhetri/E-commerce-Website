@@ -1,0 +1,80 @@
+.container {
+  padding: 0 2rem;
+}
+
+.navbar {
+  background-color: #570861;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.navbarButton {
+  color: #ffffff;
+  text-transform: initial;
+}
+
+.brand {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.section {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.children {
+  color: black;
+  margin-left: 10;
+}
+
+.footer {
+  padding: 2rem 0;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+}
+
+.form {
+  width: 100%;
+  max-width: 800;
+  margin: "0 auto";
+}
+.transparentBackground {
+  background-color: transparent;
+}
+
+.uploadimage {
+  margin-left: 17px;
+}
+.error {
+  color: "#f04040";
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .card,
+  .footer {
+    border-color: #222;
+  }
+  .code {
+    background: #111;
+  }
+  .logo img {
+    filter: invert(1);
+  }
+}
