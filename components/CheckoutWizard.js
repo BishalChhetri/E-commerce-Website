@@ -1,8 +1,9 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
 import React from "react";
 import styles from "../styles/Layout.module.css";
+import dynamic from "next/dynamic";
 
-export default function CheckoutWizard({ activeStep = 0 }) {
+function CheckoutWizard({ activeStep = 0 }) {
   return (
     <Stepper
       className={styles.transparentBackground}
@@ -19,3 +20,5 @@ export default function CheckoutWizard({ activeStep = 0 }) {
     </Stepper>
   );
 }
+
+export default dynamic(() => Promise.resolve(CheckoutWizard), { ssr: false });

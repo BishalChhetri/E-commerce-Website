@@ -17,3 +17,65 @@ import pool from "../utils/db";
 //     description varchar(255) Not NULL,
 //     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 //     );
+
+module.exports = (sequelize, DataTypes) => {
+  const Product = sequelize.define("product", {
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNULL: false,
+      autoIncrement: true,
+      PrimaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNULL: false,
+    },
+    slug: {
+      type: DataTypes.STRING,
+      allowNULL: false,
+      unique: true,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNULL: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNULL: false,
+    },
+    price: {
+      type: DataTypes.INT,
+      allowNULL: false,
+    },
+    brand: {
+      type: DataTypes.STRING,
+      allowNULL: false,
+    },
+    rating: {
+      type: DataTypes.INT,
+      allowNULL: false,
+      default: 0,
+    },
+    numReviews: {
+      type: DataTypes.INT,
+      allowNULL: false,
+      default: 0,
+    },
+    countInStock: {
+      type: DataTypes.INT,
+      allowNULL: false,
+      default: 0,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNULL: false,
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNULL: false,
+      default: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+  });
+
+  return Product;
+};

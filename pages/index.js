@@ -9,17 +9,16 @@ import {
   Typography,
 } from "@mui/material";
 import NextLink from "next/Link";
-import Head from "next/head";
 import Layout from "../components/Layout";
-import data from "../utils/data";
 import pool from "../utils/db";
 import axios from "axios";
 import { Store } from "../utils/Store";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { useSnackbar } from "notistack";
+import dynamic from "next/dynamic";
 
-export default function Home(props) {
+function Home(props) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { products } = props;
@@ -114,3 +113,5 @@ export async function getServerSideProps() {
     props: { products },
   };
 }
+
+export default dynamic(() => Promise.resolve(Home), { ssr: false });

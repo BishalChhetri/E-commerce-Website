@@ -16,8 +16,9 @@ import CheckoutWizard from "../components/CheckoutWizard";
 import Layout from "../components/Layout";
 import styles from "../styles/Layout.module.css";
 import { useSnackbar } from "notistack";
+import dynamic from "next/dynamic";
 
-export default function payment() {
+function Payment() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const router = useRouter();
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -97,3 +98,5 @@ export default function payment() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(Payment), { ssr: false });

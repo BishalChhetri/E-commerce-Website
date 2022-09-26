@@ -19,8 +19,9 @@ import { Store } from "../utils/Store";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { getError } from "../utils/error";
+import dynamic from "next/dynamic";
 
-export default function Register() {
+function Register() {
   const {
     handleSubmit,
     control,
@@ -200,3 +201,5 @@ export default function Register() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(Register), { ssr: false });

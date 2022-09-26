@@ -22,8 +22,9 @@ import styles from "../styles/Layout.module.css";
 import { Store } from "../utils/Store";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
-export default function Layout({ title, description, children }) {
+function Layout({ title, description, children }) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
@@ -190,3 +191,5 @@ export default function Layout({ title, description, children }) {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(Layout), { ssr: false });

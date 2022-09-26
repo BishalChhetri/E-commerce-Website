@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import { createContext, useReducer } from "react";
-import dynamic from "next/dynamic";
 
 export const Store = createContext();
 const initialState = {

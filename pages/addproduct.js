@@ -1,26 +1,14 @@
-import {
-  Button,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-  Link,
-  getAlertTitleUtilityClass,
-} from "@mui/material";
+import { Button, List, ListItem, TextField, Typography } from "@mui/material";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { redirect } from "next/dist/server/api-utils";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import react from "react";
 import Layout from "../components/Layout";
 import Styles from "../styles/Layout.module.css";
-import { Store } from "../utils/Store";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
-import CheckoutWizard from "../components/CheckoutWizard";
+import dynamic from "next/dynamic";
 
-export default function AddProduct() {
+function AddProduct() {
   const {
     handleSubmit,
     control,
@@ -29,9 +17,6 @@ export default function AddProduct() {
   } = useForm();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const router = useRouter();
-  const { redirect } = router.query;
-  const { state, dispatch } = useContext(Store);
-  const { userInfo, shippingAddress } = state;
 
   let imageExt = "/images/default.png";
 
@@ -66,7 +51,6 @@ export default function AddProduct() {
       enqueueSnackbar(e.response.data ? e.response.data.message : e.message, {
         variant: "error",
       });
-      console.log(e);
     }
   };
 
@@ -353,3 +337,5 @@ export default function AddProduct() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(AddProduct), { ssr: false });

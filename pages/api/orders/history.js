@@ -17,7 +17,7 @@ handler.get(async (req, res) => {
       resolve(results);
     });
   });
-  console.log(order);
+
   res.status(201).send(order);
 });
 

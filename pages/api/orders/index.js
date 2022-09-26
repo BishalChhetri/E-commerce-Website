@@ -9,7 +9,7 @@ handler.use(isAuth);
 handler.post(async (req, res) => {
   const order_id = Math.floor(100000000 + Math.random() * 900000000);
   const order = { ...req.body, user: req.user.user_id };
-  console.log(order);
+
   order.order_id = order_id;
   const order1 = {
     order_id,
@@ -67,21 +67,25 @@ handler.post(async (req, res) => {
   order.orderItems.forEach(async (element) => {
     var orderItem_id = Math.floor(10000000 + Math.random() * 90000000);
     var quantity = element.quantity;
+
     var result = Object.keys(element).map((key) => [Number(key), element[key]]);
     var item = [{ ...result[0][1], quantity }];
+
     var orderItem = [
       {
         orderItem_id,
         order_id,
         product_id: item[0].product_id,
         name: item[0].name,
+        slug: item[0].slug,
         quantity: item[0].quantity,
         image: item[0].image,
         price: item[0].price,
       },
     ];
+
     const query =
-      "INSERT INTO orderItems (orderItem_id, order_id, product_id, name,quantity,image, price) VALUES ?";
+      "INSERT INTO orderItems (orderItem_id, order_id, product_id, name,slug,quantity,image, price) VALUES ?";
 
     const queryArr = [
       orderItem.map((field) => [
@@ -89,18 +93,22 @@ handler.post(async (req, res) => {
         field.order_id,
         field.product_id,
         field.name,
+        field.slug,
         field.quantity,
         field.image,
         field.price,
       ]),
     ];
+
     const Error = (message) => {
       if (message.includes("Duplicate entry")) {
         res.status(401).send({ message: "Duplicate entry." });
-      } else res.status(401).send({ message });
+      } else {
+        res.status(401).send({ message });
+      }
     };
 
-    const userData = await new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       pool.query(query, queryArr, function (err, result) {
         if (err) {
           return reject(Error(err.message));

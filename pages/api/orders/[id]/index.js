@@ -18,6 +18,7 @@ handler.get(async (req, res) => {
       resolve(results);
     });
   });
+
   const order_id = order[0].order_id;
 
   const query2 = `SELECT * FROM orderItems WHERE order_id="${order_id}"`;
@@ -30,7 +31,9 @@ handler.get(async (req, res) => {
       resolve(results);
     });
   });
+
   order[0].orderItems = orderItems;
+
   res.status(200).send(order[0]);
 });
 

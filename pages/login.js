@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { redirect } from "next/dist/server/api-utils";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
@@ -18,8 +17,9 @@ import { Store } from "../utils/Store";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { getError } from "../utils/error";
+import dynamic from "next/dynamic";
 
-export default function Login() {
+function Login() {
   const {
     handleSubmit,
     control,
@@ -135,3 +135,5 @@ export default function Login() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(Login), { ssr: false });

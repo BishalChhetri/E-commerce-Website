@@ -19,8 +19,9 @@ import { Store } from "../utils/Store";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import CheckoutWizard from "../components/CheckoutWizard";
+import dynamic from "next/dynamic";
 
-export default function UploadImage() {
+function UploadImage() {
   const router = useRouter();
   const imageHandler = async (e) => {
     const form = document.querySelector("form");
@@ -60,3 +61,5 @@ export default function UploadImage() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(UploadImage), { ssr: false });

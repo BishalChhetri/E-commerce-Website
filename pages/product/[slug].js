@@ -24,8 +24,9 @@ import { Store } from "../../utils/Store";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
+import dynamic from "next/dynamic";
 
-export default function ProductScreen(props) {
+function ProductScreen(props) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { product } = props;
@@ -259,3 +260,5 @@ export async function getServerSideProps(context) {
     props: { product },
   };
 }
+
+export default dynamic(() => Promise.resolve(ProductScreen), { ssr: false });
