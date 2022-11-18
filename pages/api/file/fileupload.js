@@ -28,12 +28,6 @@ let uploadFile = upload.single("file");
 handler.use(uploadFile);
 
 handler.post(async (req, res) => {
-  //   let result = await executeQuery("insert into upload(pic) values(?)", [
-  //     filename,
-  //   ]);
-  //   result = await executeQuery(
-  //     `select * from upload where pic_id=${result.insertId}`
-  //   );
   res.status(200).send({ filename: `/images/${req.file.filename}` });
 });
 

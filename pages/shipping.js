@@ -1,16 +1,5 @@
-import {
-  Button,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-  Link,
-  getAlertTitleUtilityClass,
-} from "@mui/material";
-import axios from "axios";
+import { Button, List, ListItem, TextField, Typography } from "@mui/material";
 import Cookies from "js-cookie";
-import { redirect } from "next/dist/server/api-utils";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 import Layout from "../components/Layout";
@@ -28,9 +17,8 @@ function Shipping() {
     formState: { errors },
     setValue,
   } = useForm();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { closeSnackbar } = useSnackbar();
   const router = useRouter();
-  const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
   const { userInfo, shippingAddress } = state;
 

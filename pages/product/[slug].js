@@ -18,13 +18,14 @@ import {
   Dialog,
 } from "@mui/material";
 import Styles from "../../utils/styles";
-import { style } from "@mui/system";
-import pool from "../../utils/db";
 import { Store } from "../../utils/Store";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import dynamic from "next/dynamic";
+
+const db = require("../../models/db");
+const Product = db.products;
 
 function ProductScreen(props) {
   const router = useRouter();
@@ -38,9 +39,6 @@ function ProductScreen(props) {
     deleteProduct = userInfo.isAdmin;
   }
 
-  // const router = useRouter();
-  // const { slug } = router.query;
-  // const product = data.products.find((a) => a.slug === slug);
   if (!product) {
     return <div>Product Not Found</div>;
   }
@@ -244,17 +242,8 @@ function ProductScreen(props) {
 export async function getServerSideProps(context) {
   const { params } = context;
   const { slug } = params;
-
-  const query = `SELECT * FROM products WHERE slug="${slug}"`;
-  const product = await new Promise((resolve, reject) => {
-    pool.query(query, function (err, result, fields) {
-      if (err) {
-        return reject(err);
-      }
-      const results = Object.values(JSON.parse(JSON.stringify(result)));
-      resolve(results);
-    });
-  });
+  const result = await Product.findOne({ where: { slug: slug } });
+  const product = Object.values(JSON.parse(JSON.stringify([result])));
 
   return {
     props: { product },

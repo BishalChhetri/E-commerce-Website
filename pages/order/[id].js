@@ -23,8 +23,6 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/router";
 import styles from "../../styles/layout.module.css";
-import CheckoutWizard from "../../components/CheckoutWizard";
-import { useSnackbar } from "notistack";
 import { getError } from "../../utils/error";
 
 function reducer(state, action) {
@@ -80,6 +78,7 @@ function Order({ params }) {
             authorization: `Bearer ${userInfo.token}`,
           },
         });
+
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (e) {
         dispatch({ type: "FETCH_FAIL", payload: getError(e) });

@@ -1,21 +1,13 @@
 import nc from "next-connect";
-import pool from "../../../utils/db";
 import bcrypt from "bcryptjs";
 import { signToken } from "../../../utils/auth";
-
+import db from "../../../models/db";
+const User = db.users;
 const handler = nc();
 
 handler.post(async (req, res) => {
-  const query = `SELECT * FROM user WHERE email="${req.body.email}"`;
-  const userData = await new Promise((resolve, reject) => {
-    pool.query(query, function (err, result, fields) {
-      if (err) {
-        return reject(err);
-      }
-      const results = Object.values(JSON.parse(JSON.stringify(result)));
-      resolve(results);
-    });
-  });
+  const result = await User.findOne({ where: { email: req.body.email } });
+  const userData = Object.values(JSON.parse(JSON.stringify([result])));
   const user = userData[0];
 
   if (user && bcrypt.compareSync(req.body.password, user.password)) {

@@ -1,4 +1,4 @@
-const dbConfig = require("../config/dbConfig");
+const dbConfig = require("../config/dbconfig");
 
 const { Sequelize, DataTypes } = require("sequelize");
 
@@ -28,10 +28,10 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.products = require("./Product.js")(sequelize, DataTypes);
-db.users = require("./User.js")(sequelize, DataTypes);
+db.products = require("./productModel.js")(sequelize, DataTypes);
+db.users = require("./userModel.js")(sequelize, DataTypes);
 db.orders = require("./orderModel.js")(sequelize, DataTypes);
-
+db.orderItems = require("./orderItemsModel.js")(sequelize, DataTypes);
 // Not create the table if already exist in database
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Yes re-sync done!");

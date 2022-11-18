@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNULL: false,
       autoIncrement: true,
-      PrimaryKey: true,
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNULL: false,
     },
     price: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNULL: false,
     },
     brand: {
@@ -52,17 +52,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNULL: false,
     },
     rating: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNULL: false,
       default: 0,
     },
     numReviews: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNULL: false,
       default: 0,
     },
     countInStock: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNULL: false,
       default: 0,
     },

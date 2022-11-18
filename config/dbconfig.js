@@ -2,7 +2,7 @@ module.exports = {
   HOST: "localhost",
   USER: "root",
   PASSWORD: process.env.MYSQL_PW,
-  DB: "Ecommerce_DB",
+  DB: "ecommerce_db",
   dialect: "mysql",
 
   pool: {

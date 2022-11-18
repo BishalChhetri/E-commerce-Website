@@ -1,7 +1,8 @@
 import nc from "next-connect";
-import pool from "../../../utils/db";
 import bcrypt from "bcryptjs";
 import { isAuth, signToken } from "../../../utils/auth";
+import db from "../../../models/db";
+const User = db.users;
 
 const handler = nc();
 handler.use(isAuth);
@@ -23,26 +24,11 @@ handler.put(async (req, res) => {
       res.status(401).send({ message: "Email is already used." });
     } else res.status(401).send({ message });
   };
-
-  await new Promise((resolve, reject) => {
-    pool.query(
-      "Update user SET name = ? , email = ?, password =?,isAdmin=? WHERE user_id=?",
-      [
-        allData.name,
-        allData.email,
-        allData.password,
-        allData.isAdmin,
-        req.user.user_id,
-      ],
-      function (err, result) {
-        if (err) {
-          return reject(Error(err.message));
-        }
-        const results = Object.values(JSON.parse(JSON.stringify(result)));
-        resolve(results);
-      }
-    );
-  });
+  try {
+    await User.update(allData, { where: { user_id: req.user.user_id } });
+  } catch (e) {
+    Error(e.message);
+  }
 
   const token = signToken(allData);
   res.send({

@@ -1,28 +1,10 @@
-import {
-  Button,
-  List,
-  ListItem,
-  TextField,
-  Typography,
-  Link,
-  getAlertTitleUtilityClass,
-} from "@mui/material";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { redirect } from "next/dist/server/api-utils";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Layout from "../components/Layout";
-import Styles from "../styles/Layout.module.css";
-import { Store } from "../utils/Store";
-import { Controller, useForm } from "react-hook-form";
-import { useSnackbar } from "notistack";
-import CheckoutWizard from "../components/CheckoutWizard";
 import dynamic from "next/dynamic";
 
 function UploadImage() {
-  const router = useRouter();
   const imageHandler = async (e) => {
     const form = document.querySelector("form");
     form.addEventListener("submit", (e) => {

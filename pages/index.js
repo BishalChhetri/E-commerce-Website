@@ -10,13 +10,14 @@ import {
 } from "@mui/material";
 import NextLink from "next/Link";
 import Layout from "../components/Layout";
-import pool from "../utils/db";
 import axios from "axios";
 import { Store } from "../utils/Store";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { useSnackbar } from "notistack";
 import dynamic from "next/dynamic";
+const db = require("../models/db");
+const Product = db.products;
 
 function Home(props) {
   const router = useRouter();
@@ -93,21 +94,9 @@ function Home(props) {
 }
 
 export async function getServerSideProps() {
-  const query = "SELECT * FROM products";
-  const products = await new Promise((resolve, reject) => {
-    pool.query(query, function (err, result, fields) {
-      if (err) {
-        return reject(err);
-      }
-      // const product = Object.keys(result).forEach(function (key) {
-      //   const row = result[key];
-      //   return row;
-      // });
-      const results = Object.values(JSON.parse(JSON.stringify(result)));
-      // console.log(results);
-      resolve(results);
-    });
-  });
+  const result = await Product.findAll({ where: {} });
+
+  const products = Object.values(JSON.parse(JSON.stringify(result)));
 
   return {
     props: { products },

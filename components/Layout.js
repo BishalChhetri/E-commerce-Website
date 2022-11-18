@@ -63,12 +63,6 @@ function Layout({ title, description, children }) {
     },
   });
 
-  // const darkModeChangeHandler = () => {
-  //   dispatch({ type: darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" });
-  //   const newDarkMode = !darkMode;
-  //   Cookies.set("darkMode", newDarkMode ? "ON" : "OFF");
-  // };
-
   const [anchorEl, setAnchorEl] = useState(null);
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);
@@ -103,11 +97,6 @@ function Layout({ title, description, children }) {
             </NextLink>
             <div className={styles.grow}></div>
             <div>
-              {/* Dark Mode On */}
-              {/* <Switch
-                checked={darkMode}
-                onChange={darkModeChangeHandler}
-              ></Switch> */}
               <NextLink href="/addproduct" passHref>
                 <Link color="#ffffff" style={{ textDecoration: "none" }}>
                   {addproduct ? (
