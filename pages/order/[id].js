@@ -49,7 +49,6 @@ function Order({ params }) {
     order: {},
     error: "",
   });
-
   const {
     fullName,
     address,
@@ -57,7 +56,7 @@ function Order({ params }) {
     postalCode,
     payment_method,
     email,
-    mobile_no,
+    mobileno,
     country,
     orderItems,
     itemsPrice,
@@ -65,7 +64,6 @@ function Order({ params }) {
     shippingPrice,
     totalPrice,
   } = order;
-
   useEffect(() => {
     if (!userInfo) {
       return router.push("/login");
@@ -136,7 +134,7 @@ function Order({ params }) {
                 </ListItem>
                 <ListItem>
                   <strong>Mobile No.: </strong>
-                  {mobile_no}
+                  {mobileno}
                 </ListItem>
               </List>
             </Card>

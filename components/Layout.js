@@ -69,7 +69,7 @@ function Layout({ title, description, children }) {
   };
   const loginMenuCloseHandler = (e, redirect) => {
     setAnchorEl(null);
-    if (redirect) {
+    if (redirect && redirect !== "backdropClick") {
       router.push(redirect);
     }
   };
@@ -105,6 +105,7 @@ function Layout({ title, description, children }) {
                         aria-controls="simple-menu"
                         aria-haspopup="true"
                         className={styles.navbarButton}
+                        style={{ color: "white" }}
                       >
                         Add Product
                       </Button>
@@ -134,6 +135,7 @@ function Layout({ title, description, children }) {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={loginClickHandler}
+                    style={{ color: "#ffffff", fontWeight: "bold" }}
                     className={styles.navbarButton}
                   >
                     {userInfo.name}
@@ -163,6 +165,7 @@ function Layout({ title, description, children }) {
               ) : (
                 <NextLink href="/login" passHref>
                   <Link color="#ffffff" style={{ textDecoration: "none" }}>
+                    {" "}
                     Login
                   </Link>
                 </NextLink>
@@ -170,12 +173,28 @@ function Layout({ title, description, children }) {
             </div>
           </Toolbar>
         </AppBar>
-        <Container className={styles.children}>{children}</Container>
-        <footer className={styles.footer}>
-          <Typography>
-            <strong>All rights reserved. Bishal KC</strong>
-          </Typography>
-        </footer>
+        <Container
+          className={styles.children}
+          style={{
+            marginBottom: "2.5rem",
+          }}
+        >
+          {children}
+        </Container>
+
+        <div
+          style={{
+            position: "fixed",
+            bottom: 0,
+            width: "100%",
+          }}
+        >
+          <footer className={styles.footer}>
+            <Typography>
+              <strong>All rights reserved. Bishal KC</strong>
+            </Typography>
+          </footer>
+        </div>
       </ThemeProvider>
     </div>
   );

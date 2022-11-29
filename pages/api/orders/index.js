@@ -1,5 +1,4 @@
 import nc from "next-connect";
-import pool from "../../../utils/db";
 import { onError } from "../../../utils/error";
 import { isAuth } from "../../../utils/auth";
 import db from "../../../models/db";
@@ -32,7 +31,6 @@ handler.post(async (req, res) => {
       res.status(401).send({ message: "Duplicate entry." });
     } else res.status(401).send({ message });
   };
-  console.log(orders[0]);
   try {
     const userData = await Order.create(orders[0]);
   } catch (e) {

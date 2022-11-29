@@ -1,25 +1,25 @@
 import nc from "next-connect";
-import pool from "../../../utils/db";
+import db from "../../../models/db";
+const Product = db.products;
 
 const handler = nc();
 
 handler.post(async (req, res) => {
-  const query = `DELETE FROM  products WHERE product_id="${req.body.product_id}"`;
-
   const Error = (message) => {
     if (message.includes("Duplicate entry")) {
       res.status(401).send({ message: "Email is already used." });
     } else res.status(401).send({ message });
   };
 
-  await new Promise((resolve, reject) => {
-    pool.query(query, function (err, result) {
-      if (err) {
-        return reject(Error(err.message));
-      }
-      resolve(result);
+  try {
+    await Product.destroy({
+      where: {
+        product_id: req.body.product_id,
+      },
     });
-  });
+  } catch (error) {
+    return Error(err.message);
+  }
 
   res.send({
     message: "Successfully deleted!",

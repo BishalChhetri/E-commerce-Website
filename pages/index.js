@@ -76,9 +76,10 @@ function Home(props) {
                   <Typography>
                     <strong>RS {product.price}</strong>
                   </Typography>
+                  <div style={{ flexGrow: 1 }}></div>
                   <Button
                     size="small"
-                    color="primary"
+                    color="secondary"
                     onClick={() => addToCartHandler([product])}
                   >
                     <strong>Add to Cart</strong>
