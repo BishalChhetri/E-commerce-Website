@@ -10,7 +10,6 @@ import {
   ListItem,
   Typography,
   Button,
-  Rating,
   DialogTitle,
   DialogContent,
   DialogContentText,
@@ -28,11 +27,13 @@ const db = require("../../models/db");
 const Product = db.products;
 
 function ProductScreen(props) {
+  const [open, setOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { product } = props;
   const { userInfo } = state;
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   let deleteProduct = 0;
   if (userInfo) {
@@ -61,9 +62,6 @@ function ProductScreen(props) {
     router.push("/cart");
   };
 
-  const [open, setOpen] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
-
   const handleClose = () => {
     setOpen(true);
   };
@@ -73,11 +71,12 @@ function ProductScreen(props) {
   const handleCloseYes = async (product_id) => {
     setConfirmDelete(true);
     setOpen(false);
-
+    console.log(confirmDelete);
     try {
       const { message } = await axios.post("/api/file/productDelete", {
         product_id,
       });
+      console.log(message);
       enqueueSnackbar(`Successfully deleted!`, { variant: "success" });
       router.push("/");
     } catch (e) {
@@ -90,7 +89,7 @@ function ProductScreen(props) {
 
   const deleteHandler = async (id) => {
     setOpen(true);
-    console.log(id)
+    console.log(id);
   };
 
   return (
@@ -107,7 +106,7 @@ function ProductScreen(props) {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              You can't undo this action!
+              You cannot undo this action!
             </DialogContentText>
           </DialogContent>
           <DialogActions>
