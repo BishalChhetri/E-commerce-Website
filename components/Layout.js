@@ -8,10 +8,8 @@ import {
   createTheme,
   ThemeProvider,
   CssBaseline,
-  Switch,
   Button,
   Badge,
-  cardActionAreaClasses,
   Menu,
   MenuItem,
 } from "@mui/material";

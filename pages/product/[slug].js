@@ -90,6 +90,7 @@ function ProductScreen(props) {
 
   const deleteHandler = async (id) => {
     setOpen(true);
+    console.log(id)
   };
 
   return (
