@@ -17,15 +17,14 @@ handler.post(async (req, res) => {
     countInStock: parseInt(req.body.countInStock),
     description: req.body.description,
   };
-
   try {
     const product = await Product.create(allData);
+    res.send({
+      data: product,
+    });
   } catch (e) {
     Error(e.message);
   }
-  res.send({
-    data: allData,
-  });
 });
 
 export default handler;

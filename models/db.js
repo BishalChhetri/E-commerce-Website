@@ -32,6 +32,7 @@ db.products = require("./productModel.js")(sequelize, DataTypes);
 db.users = require("./userModel.js")(sequelize, DataTypes);
 db.orders = require("./orderModel.js")(sequelize, DataTypes);
 db.orderItems = require("./orderItemsModel.js")(sequelize, DataTypes);
+
 // Not create the table if already exist in database
 db.sequelize.sync({ force: false }).then(() => {
   console.log("Yes re-sync done!");

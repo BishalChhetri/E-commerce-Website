@@ -79,14 +79,14 @@ function Layout({ title, description, children }) {
     router.push("/");
   };
   return (
-    <div>
+    <div className={styles.app}>
       <Head>
         <title>{title ? `${title}  E-commerce` : "E-commerce"}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" className={styles.navbar}>
+        <AppBar position="fixed" className={styles.navbar}>
           <Toolbar>
             <NextLink href="/" passHref>
               <Link style={{ textDecoration: "none" }}>
@@ -182,7 +182,7 @@ function Layout({ title, description, children }) {
 
         <div
           style={{
-            position: "fixed",
+            position: "static",
             bottom: 0,
             width: "100%",
           }}

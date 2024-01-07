@@ -1,7 +1,7 @@
 import { Button, List, ListItem, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
-import react, { useContext } from "react";
+import { useContext, useState } from "react";
 import Layout from "../components/Layout";
 import Styles from "../styles/Layout.module.css";
 import { Controller, useForm } from "react-hook-form";
@@ -10,7 +10,8 @@ import dynamic from "next/dynamic";
 import { Store } from "../utils/Store";
 
 function AddProduct() {
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
+  const [imageExt, setimageExt] = useState("/images/default.png");
   const { userInfo } = state;
   let isAdmin = false;
   if (userInfo) {
@@ -24,64 +25,42 @@ function AddProduct() {
     handleSubmit,
     control,
     formState: { errors },
-    setValue,
   } = useForm();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  let imageExt = "/images/default.png";
+  const submitHandler = async (data) => {
+    // Include 'imageExt' (uploaded image) along with other form data
+    data.image = imageExt;
 
-  const submitHandler = async ({
-    name,
-    slug,
-    category,
-    price,
-    brand,
-    rating,
-    numReviews,
-    countInStock,
-    description,
-  }) => {
     closeSnackbar();
     try {
-      const { data } = await axios.post("/api/file/productUpload", {
-        name,
-        slug,
-        category,
-        image: imageExt,
-        price,
-        brand,
-        rating,
-        numReviews,
-        countInStock,
-        description,
-      });
+      await axios.post("/api/file/productUpload", data);
       router.push("/");
-    } catch (e) {
-      enqueueSnackbar(e.response.data ? e.response.data.message : e.message, {
-        variant: "error",
-      });
+    } catch (error) {
+      enqueueSnackbar(
+        error.response.data ? error.response.data.message : error.message,
+        {
+          variant: "error",
+        }
+      );
     }
   };
 
   const imageHandler = async (e) => {
-    const form = document.querySelector("form");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      axios
-        .post("/api/file/fileupload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          const { filename } = res.data;
-          imageExt = filename;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
+    const file = e.target.files[0]; // Get the uploaded file
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await axios.post("/api/file/fileupload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const { filename } = res.data;
+      setimageExt(filename);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -92,19 +71,23 @@ function AddProduct() {
             <Typography component="h1" variant="h1">
               Add Product
             </Typography>
-            <h5>Upload Image</h5>
-            <form
-              method="post"
-              action="/api/file/fileupload"
-              encType="multipart/form-data"
-            >
-              <input type="file" id="file" name="file"></input>
-              <button type="submit" onClick={imageHandler}>
-                Upload
-              </button>
-            </form>
           </div>
           <form onSubmit={handleSubmit(submitHandler)} className={Styles.form}>
+            <div className={Styles.uploadimage}>
+              <Typography component="h1" variant="h1">
+                Add Product
+              </Typography>
+              <h5>Upload Product Image</h5>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                onChange={imageHandler}
+              />
+              {/* <Button type="submit" variant="contained" color="primary">
+                Upload and Save
+              </Button> */}
+            </div>
             <List>
               <ListItem>
                 <Controller
@@ -121,7 +104,7 @@ function AddProduct() {
                       fullWidth
                       id="name"
                       label="Name"
-                      inputProps={{ type: "text" }}
+                      inputProps={{ type: "text", autoComplete: "off" }}
                       error={Boolean(errors.name)}
                       helperText={
                         errors.name
@@ -150,7 +133,7 @@ function AddProduct() {
                       fullWidth
                       id="slug"
                       label="Slug"
-                      inputProps={{ type: "text" }}
+                      inputProps={{ type: "text", autoComplete: "off" }}
                       error={Boolean(errors.slug)}
                       helperText={
                         errors.slug
@@ -179,7 +162,7 @@ function AddProduct() {
                       fullWidth
                       id="category"
                       label="Category"
-                      inputProps={{ type: "text" }}
+                      inputProps={{ type: "text", autoComplete: "off" }}
                       error={Boolean(errors.category)}
                       helperText={
                         errors.category
@@ -237,7 +220,7 @@ function AddProduct() {
                       fullWidth
                       id="brand"
                       label="Brand"
-                      inputProps={{ type: "text" }}
+                      inputProps={{ type: "text", autoComplete: "off" }}
                       error={Boolean(errors.brand)}
                       helperText={
                         errors.brand
@@ -324,7 +307,7 @@ function AddProduct() {
                       fullWidth
                       id="description"
                       label="Description"
-                      inputProps={{ type: "text" }}
+                      inputProps={{ type: "text", autoComplete: "off" }}
                       error={Boolean(errors.description)}
                       helperText={
                         errors.description

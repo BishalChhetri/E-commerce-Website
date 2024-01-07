@@ -1,5 +1,4 @@
 import nc from "next-connect";
-import pool from "../../../utils/db";
 import { onError } from "../../../utils/error";
 import { isAuth } from "../../../utils/auth";
 import db from "../../../models/db";

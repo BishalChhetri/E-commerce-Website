@@ -47,7 +47,6 @@ function Profile() {
       enqueueSnackbar("Passwords don't match", { variant: "error" });
       return;
     }
-
     try {
       const { data } = await axios.put(
         "/api/users/profile",
@@ -62,7 +61,6 @@ function Profile() {
           },
         }
       );
-
       dispatch({ type: "USER_LOGIN", payload: data });
       Cookies.set("userInfo", JSON.stringify(data));
       enqueueSnackbar("Profile updated Successfully", { variant: "success" });

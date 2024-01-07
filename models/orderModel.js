@@ -97,5 +97,10 @@ module.exports = (sequelize, DataTypes) => {
     { timestamps: false }
   );
 
+  Order.belongsTo(sequelize.models.user, {
+    foreignKey: "user_id",
+    onDelete: "CASCADE",
+  });
+
   return Order;
 };

@@ -10,7 +10,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import Layout from "../components/Layout";
 import Styles from "../styles/Layout.module.css";
 import { Store } from "../utils/Store";
@@ -30,6 +30,7 @@ function Login() {
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
+
   useEffect(() => {
     if (userInfo) {
       router.push("/");

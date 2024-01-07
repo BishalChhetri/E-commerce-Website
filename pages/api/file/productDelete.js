@@ -18,7 +18,7 @@ handler.post(async (req, res) => {
       },
     });
   } catch (error) {
-    return Error(err.message);
+    return Error(error.message);
   }
 
   res.send({

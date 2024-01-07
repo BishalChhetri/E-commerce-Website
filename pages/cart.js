@@ -60,10 +60,17 @@ function CartScreen() {
         <strong>Shopping Cart</strong>
       </Typography>
       {cartItems.length === 0 ? (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "5rem",
+          }}
+        >
           Cart is empty.{" "}
-          <NextLink href="/" passHref>
-            <strong>Go Shopping</strong>
+          <NextLink href={`/`} passHref>
+            <Link>Go Shopping</Link>
           </NextLink>
         </div>
       ) : (

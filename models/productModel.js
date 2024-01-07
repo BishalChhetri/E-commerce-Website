@@ -1,5 +1,4 @@
-import { Description, VolunteerActivismSharp } from "@mui/icons-material";
-import pool from "../utils/db";
+
 
 // MYSQL TABLE SCHEMA in database
 
